@@ -27,7 +27,16 @@ public class Solution
 
     private void Backtrack(int[] candidates, int remaining, int start, IList<int> subList, IList<IList<int>> resLists)
     {
-        
-        Backtrack(candidates, remaining, start, subList, resLists);
+        if (remaining == 0) resLists.Add(new List<int>(subList));
+            
+        if (remaining < 0) return;
+
+        for (int i = start; i < candidates.Length; i++)
+        {
+            int current = candidates[i];
+            subList.Add(current);
+            Backtrack(candidates, remaining - current, i, subList, resLists);
+            subList.RemoveAt(subList.Count - 1);
+        }
     }
 }
